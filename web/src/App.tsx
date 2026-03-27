@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import { Plus } from 'lucide-react'
 import { TaskList } from './components/TaskList'
 import { TaskForm } from './components/TaskForm'
+import { ActivityGraph } from './components/ActivityGraph'
 import type { Task } from './types'
+import { getLocalYMD } from './utils'
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>(() => {
@@ -39,7 +41,7 @@ function App() {
   }
 
   const handleToggleComplete = (id: string) => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = getLocalYMD();
     setTasks(tasks.map(t => {
       if (t.id === id) {
         const completions = t.completions || [];
@@ -96,6 +98,9 @@ function App() {
           </div>
           {/* We will add more stats here in the future like Wallpapers Generated */}
         </div>
+
+        {/* Activity Graph */}
+        <ActivityGraph tasks={tasks} />
 
         {/* Main Content */}
         <main>

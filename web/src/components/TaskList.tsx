@@ -1,5 +1,6 @@
 import { Trash2, Edit2, Clock, CheckCircle, Circle } from 'lucide-react';
 import type { Task } from '../types';
+import { getLocalYMD } from '../utils';
 
 interface TaskListProps {
   tasks: Task[];
@@ -21,7 +22,7 @@ export function TaskList({ tasks, onEdit, onDelete, onToggleComplete }: TaskList
   return (
     <div className="flex flex-col gap-4">
       {tasks.map((task) => {
-        const today = new Date().toISOString().split('T')[0];
+        const today = getLocalYMD();
         const isCompletedToday = (task.completions || []).includes(today);
         
         return (
