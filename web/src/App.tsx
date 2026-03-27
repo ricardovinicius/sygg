@@ -38,6 +38,23 @@ function App() {
     }
   }
 
+  const handleToggleComplete = (id: string) => {
+    const today = new Date().toISOString().split('T')[0];
+    setTasks(tasks.map(t => {
+      if (t.id === id) {
+        const completions = t.completions || [];
+        const isCompletedToday = completions.includes(today);
+        return {
+          ...t,
+          completions: isCompletedToday 
+            ? completions.filter(d => d !== today)
+            : [...completions, today]
+        };
+      }
+      return t;
+    }));
+  }
+
   const handleEditTask = (task: Task) => {
     setEditingTask(task)
     setIsFormOpen(true)
@@ -90,6 +107,7 @@ function App() {
             tasks={tasks} 
             onEdit={handleEditTask} 
             onDelete={handleDeleteTask} 
+            onToggleComplete={handleToggleComplete}
           />
         </main>
       </div>

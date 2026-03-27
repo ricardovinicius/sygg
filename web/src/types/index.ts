@@ -8,4 +8,5 @@ export interface Task {
   customDays?: number[]; // 0 for Sunday to 6 for Saturday
   colorHex?: string;
   createdAt: number;
+  completions?: string[]; // Array of YYYY-MM-DD strings
 }
